@@ -25,7 +25,7 @@ public class AuthorizeController {
 	private String redirectUri;
 	
 	@GetMapping("/callback")
-	public String callack(@RequestParam(name = "code" )String code, @RequestParam(name = "state") String state) {
+	public String callack(@RequestParam(name = "code" )String code, @RequestParam(name = "state") String state,HttpServletRequest request) {
 		AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
 		accessTokenDTO.setClient_id(clientId);		
 		accessTokenDTO.setClient_secret(clientSecret);
@@ -35,8 +35,12 @@ public class AuthorizeController {
 		String accessToken= githubProvider.getAccessToken(accessTokenDTO);
 		GithubUser user = githubProvider.getUser(accessToken);
 		System.out.println(user.getName());
-		return "index";
-		
+		if(user!=null) {
+			request.getSession().setAttribute("user",user);
+			return "redirect:/";
+		}else {
+			return "redirect:/";
+		}	
 		
 	}
 }
