@@ -1,0 +1,12 @@
+@charset "ISO-8859-1";
+.main{
+	margin:30px;
+	background-color:white;
+}
+body{
+		background-color:#efefef;	
+}
+.btn-publish{
+	float: right;
+	margin-bottom:15px;
+}
